@@ -40,7 +40,7 @@
 
 #include "nutt/base64.h"
 #include "nutt/main.h"
-#include "nutt/light.h"
+#include "nutt/functionality.h"
 #include "nutt/thread.h"
 #include "nutt/ui.h"
 #include "nutt/util.h"
@@ -122,12 +122,12 @@ Device::Device(UserInterface &ui) : WakeupThread("Device", true), ui_(ui),
 	ui_.core_dump(core_dump_present_);
 }
 
-void Device::add(Light &light, std::vector<std::reference_wrapper<ZigbeeEndpoint>> &&endpoints) {
-	lights_.emplace(light.index(), light);
-	light_tasks_.emplace(light.index(),
-			std::make_shared<std::function<void()>>([&light] {
-		ESP_LOGD(TAG, "Refresh light %u", light.index());
-		light.refresh();
+void Device::add(Functionality &functionality, std::vector<std::reference_wrapper<ZigbeeEndpoint>> &&endpoints) {
+	functionality_.emplace(functionality.index(), functionality);
+	functionality_tasks_.emplace(functionality.index(),
+			std::make_shared<std::function<void()>>([&functionality] {
+		ESP_LOGD(TAG, "Refresh functionality %u", functionality.index());
+		functionality.refresh();
 	}));
 
 	for (auto ep : endpoints)
@@ -144,8 +144,8 @@ void Device::start() {
 	t.detach();
 }
 
-void Device::request_refresh(const Light &light) {
-	zigbee_.reschedule(light_tasks_.at(light.index()));
+void Device::request_refresh(const Functionality &functionality) {
+	zigbee_.reschedule(functionality_tasks_.at(functionality.index()));
 }
 
 void Device::join_network() {
@@ -326,8 +326,8 @@ unsigned long Device::run_tasks() {
 
 	esp_task_wdt_reset();
 
-	for (auto &light : lights_)
-		wait_ms = std::min(wait_ms, light.second.run());
+	for (auto &functionality : functionality_)
+		wait_ms = std::min(wait_ms, functionality.second.run());
 
 	return wait_ms;
 }

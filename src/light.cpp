@@ -17,6 +17,7 @@
  */
 
 #include "nutt/light.h"
+#include "nutt/functionality.h"
 
 #include <esp_crc.h>
 #include <esp_err.h>
@@ -49,7 +50,7 @@ std::unique_ptr<nvs::NVSHandle> Light::nvs_;
 RTC_NOINIT_ATTR uint32_t Light::rtc_state_[MAX_LIGHTS];
 
 Light::Light(uint8_t index, gpio_num_t switch_pin, bool switch_active_low,
-		gpio_num_t relay_pin, bool relay_active_low) : index_(index),
+		gpio_num_t relay_pin, bool relay_active_low) : Functionality(index),
 		switch_debounce_(switch_pin, switch_active_low, DEBOUNCE_US),
 		relay_pin_(relay_pin), relay_active_low_(relay_active_low),
 		switch_active_(switch_debounce_.value()),

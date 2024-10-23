@@ -34,6 +34,8 @@
 #include "main.h"
 #include "zigbee.h"
 
+#include "functionality.h"
+
 namespace nutt {
 
 class Light;
@@ -160,16 +162,16 @@ protected:
 
 } // namespace light
 
-class Light {
+class Light : public Functionality {
 public:
 	Light(uint8_t index, gpio_num_t switch_pin, bool switch_active_low,
-		gpio_num_t relay_pin, bool relay_active_low);
+		gpio_num_t relay_pin, bool relay_active_low) ;
 	~Light() = delete;
 
 	static constexpr const char *TAG = "nutt.Light";
 	static constexpr const size_t NUM_EP_PER_LIGHT = 6;
 
-	inline uint8_t index() const { return index_; }
+	//inline uint8_t index() const { return index_; }
 
 	void attach(Device &device);
 
@@ -230,7 +232,7 @@ private:
 	inline int relay_active() const { return relay_active_low_ ? 0 : 1; }
 	inline int relay_inactive() const { return relay_active_low_ ? 1 : 0; }
 
-	const uint8_t index_;
+	//const uint8_t index_;
 	Debounce switch_debounce_;
 	const gpio_num_t relay_pin_;
 	const bool relay_active_low_;
@@ -251,7 +253,7 @@ private:
 	light::SwitchStatusCluster &switch_status_cl_;
 	light::TemporaryEnableCluster &temporary_enable_cl_;
 
-	Device *device_{nullptr};
+	//Device *device_{nullptr};
 };
 
 } // namespace nutt

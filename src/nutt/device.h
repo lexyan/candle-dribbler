@@ -34,7 +34,7 @@
 namespace nutt {
 
 class Device;
-class Light;
+class Functionality;
 class UserInterface;
 
 namespace device {
@@ -196,9 +196,9 @@ public:
 	static constexpr const size_t MAX_DATE_CODE_LENGTH = 16;
 	static constexpr const size_t MAX_STRING_LENGTH = 70;
 
-	void add(Light &light, std::vector<std::reference_wrapper<ZigbeeEndpoint>> &&endpoints);
+	void add(Functionality &unctionality, std::vector<std::reference_wrapper<ZigbeeEndpoint>> &&endpoints);
 	void start();
-	void request_refresh(const Light &light);
+	void request_refresh(const Functionality &functionality);
 
 	inline UserInterface& ui() { return ui_; };
 	void join_network();
@@ -248,8 +248,8 @@ private:
 	device::UplinkCluster uplink_cl_;
 	device::RSSICluster rssi_cl_;
 	std::vector<std::reference_wrapper<device::SoftwareCluster>> software_cls_;
-	std::unordered_map<uint8_t,Light&> lights_;
-	std::unordered_map<uint8_t,std::shared_ptr<std::function<void()>>> light_tasks_;
+	std::unordered_map<uint8_t,Functionality&> functionality_;
+	std::unordered_map<uint8_t,std::shared_ptr<std::function<void()>>> functionality_tasks_;
 	bool ota_validated_{false};
 	std::atomic<bool> core_dump_present_{false};
 };
