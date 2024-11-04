@@ -52,9 +52,9 @@ namespace nutt {
 
 Device::Device(UserInterface &ui) : WakeupThread("Device", true), ui_(ui),
 		zigbee_(*new ZigbeeDevice{*this}),
-		basic_cl_(*this, "uuid.uk",
+		basic_cl_(*this, CONFIG_NUTT_MANUFACTURER,
 			(MAX_LIGHTS > 0 || !ZigbeeDevice::ROUTER)
-				? "candle-dribbler" : "router",
+				? CONFIG_NUTT_MODEL : "router",
 			"https://github.com/nomis/candle-dribbler"),
 		identify_cl_(ui_) {
 	uptime_task_ = std::make_shared<std::function<void()>>([this] {

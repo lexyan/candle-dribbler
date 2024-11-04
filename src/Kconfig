@@ -1,6 +1,18 @@
 menu "Candle Dribbler"
 	depends on ZB_ENABLED
 
+config NUTT_MANUFACTURER
+	string "ZigBee Manufacturer"
+	default "uuid.uk"
+	help
+		Configure manufacturer reported in basic cluster.
+
+config NUTT_MODEL
+	string "ZigBee Model"
+	default "candle-dribbler"
+	help
+		Configure model reported in basic cluster.
+
 config NUTT_MAX_LIGHTS
 	int "Number of lights supported"
 	range 0 8
