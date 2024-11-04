@@ -4,6 +4,7 @@ Candle Dribbler |Build Status|
 ESP32 Zigbee multi-channel light controller.
 
 Supports up to 8 lights (switch and relay).
+The ESP32-H2 has limited usable GPIOs, this variants support up to 7 lights (with associated relays).
 
 Requires an ESP32-H2 or ESP32-C6.
 
