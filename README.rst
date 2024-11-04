@@ -24,7 +24,7 @@ Requires an ESP32-H2 or ESP32-C6.
 Usage
 -----
 
-Use a push button on GPIO4 to GND (or use the UART command) to join/leave the
+Use a push button on GPIO9 (BOOT button on devkit board) to GND (or use the UART command) to join/leave the
 Zigbee network. Joining a new network is not performed automatically. Leaving
 the network currently requires a restart.
 

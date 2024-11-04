@@ -49,7 +49,7 @@ extern "C" void app_main() {
 
 	ESP_ERROR_CHECK(gpio_install_isr_service(ESP_INTR_FLAG_LEVEL2));
 
-	auto &ui = *new UserInterface{logging, GPIO_NUM_4, true};
+	auto &ui = *new UserInterface{logging, GPIO_NUM_9, true};
 	auto &device = *new Device{ui};
 
 	/*                                 Switch       Active Low          Relay        Active Low
